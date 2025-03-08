@@ -1,0 +1,21 @@
+{
+    "name": "isbc/prayertimes",
+    "description": "Prayers times (Azan/Iqama) for Masjid Alhidayah",
+    "type": "web-application",
+    "require": {
+        "bcosca/fatfree-core": "^3.8",
+        "twbs/bootstrap": "^5.3",
+        "fortawesome/font-awesome": "^6.5"
+    },
+    "license": "freeware",
+    "autoload": {
+        "psr-4": {
+            "Isbc\\Prayertimes\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Hanea"
+        }
+    ]
+}

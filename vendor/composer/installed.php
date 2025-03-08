@@ -1,0 +1,56 @@
+<?php return array(
+    'root' => array(
+        'name' => 'isbc/prayertimes',
+        'pretty_version' => '1.0.0+no-version-set',
+        'version' => '1.0.0.0',
+        'reference' => null,
+        'type' => 'web-application',
+        'install_path' => __DIR__ . '/../../',
+        'aliases' => array(),
+        'dev' => true,
+    ),
+    'versions' => array(
+        'bcosca/fatfree-core' => array(
+            'pretty_version' => '3.8.2',
+            'version' => '3.8.2.0',
+            'reference' => '774692ce7698904d3cb35bbd4f79376bb17eeddc',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../bcosca/fatfree-core',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'fortawesome/font-awesome' => array(
+            'pretty_version' => '6.5.2',
+            'version' => '6.5.2.0',
+            'reference' => 'c0f460dca7f7688761120415ff3c9cf7f73119be',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../fortawesome/font-awesome',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'isbc/prayertimes' => array(
+            'pretty_version' => '1.0.0+no-version-set',
+            'version' => '1.0.0.0',
+            'reference' => null,
+            'type' => 'web-application',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'twbs/bootstrap' => array(
+            'pretty_version' => 'v5.3.3',
+            'version' => '5.3.3.0',
+            'reference' => '6e1f75f420f68e1d52733b8e407fc7c3766c9dba',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../twbs/bootstrap',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'twitter/bootstrap' => array(
+            'dev_requirement' => false,
+            'replaced' => array(
+                0 => 'v5.3.3',
+            ),
+        ),
+    ),
+);

@@ -1,0 +1,61 @@
+<div class="card login-card shadow-lg p-3">
+    <main class="form-signin w-100 m-auto text-center">
+        <?php if (isset($error)): ?>
+            <div class="alert alert-danger"><?= ($error) ?></div>
+        <?php endif; ?>
+        <?php if (isset($message)): ?>
+            <div class="alert alert-success"><?= ($message) ?></div>
+        <?php endif; ?>
+
+        <form id="login-form" method="post" action="/prayer-times/login">
+            <img class="mb-4" src="https://theisbc.ca/sites/default/files/isbc-logo.png" width="120" alt="ISBC Logo">
+            <h3 class="h3 mb-3 fw-normal">Admin login</h3>
+
+            <div class="form-floating">
+                <input class="form-control" type="text" name="username" placeholder="Username" required>
+                <label>Username</label>
+            </div>
+            <div class="form-floating">
+                <input class="form-control" type="password" name="password" placeholder="Password" required>
+                <label>Password</label>
+            </div>
+
+            <button class="btn btn-primary w-100 py-2 g-recaptcha" type="submit" data-sitekey="6LcBm-sqAAAAABhDd_hNKOdI1GrOa87HC8KssEEq" data-callback="onSubmit" data-action="submit">Login</button>
+        </form>
+    </main>
+</div>
+
+<style>
+    .login-card {
+        width: 350px;
+        margin: 160px auto 0;
+    }
+
+    .form-signin {
+        max-width: 330px;
+        padding: 1rem;
+    }
+
+    .form-signin .form-floating:focus-within {
+        z-index: 2;
+    }
+
+    .form-signin input[type="text"] {
+        margin-bottom: -1px;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    .form-signin input[type="password"] {
+        margin-bottom: 10px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+</style>
+
+<script src="https://www.google.com/recaptcha/api.js"></script>
+<script>
+    function onSubmit(token) {
+        document.getElementById("login-form").submit();
+    }
+</script>

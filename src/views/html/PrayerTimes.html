@@ -1,0 +1,126 @@
+<div class="card">
+    <div class="card-body">
+        <div class="row align-items-end">
+            <div class=" col-4">
+                <img class="img-fluid" src="https://theisbc.ca/sites/default/files/isbc-logo.png" alt="Home">
+            </div>
+            <div class="col">
+                <h1 class="text-end">Prayers Times</h1>
+            </div>
+        </div>
+    </div>
+    <div id="table-wraper" style="padding-bottom: 3px;">
+        <repeat group="{{ @ds }}" key="{{ @key }}" value="{{ @datum }}">
+            <table id="prayers_table" style="margin-bottom: 0px;" class="table table-borderless align-middle">
+                <check if="{{ @key==0 }}">
+                    <true>
+                        <thead class="fs-5 fw-semibod text-center">
+                    </true>
+                    <false>
+                        <thead class="fw-semibod text-center">
+                    </false>
+                </check>
+                <tr class="table-light border-top border-bottom">
+                    <th colspan="7" class="text-center">
+                        <h4 class="d-inline-flex">{{ @datum['DateG']}}&nbsp;-&nbsp;{{ @datum['DateH'] }}</h4>
+                        <check if="{{ @key==0 }}">
+                            <true>
+                                <div id="digital-clock" class='time d-inline-flex'>
+                                    
+                                    <a id='dig-clock' href='#' class='btn btn-lg btn-secondary' role='button'>
+                                        🕗&nbsp;
+                                        <span id='hour'>00</span>:
+                                        <span id='min'>00</span>
+                                        <span id='sec' class="visually-hidden">00</span>
+                                        <span id='period'>AM</span></a>
+                                </div>
+                            </true>
+                        </check>
+                    </th>
+                </tr>
+                <tr class='prayers-label'>
+                    <th></th>
+                    <repeat group="{{ @datum['prayers_eng_names']}}" key="{{ @i }}" value="{{ @v }}">
+                        <check if="{{ @key==0 && @datum['active_prayer_id']==@i }}">
+                            <true>
+                                <th class="table-light border-start border-end">
+                                    {{@v}}&nbsp;<span class="amiri-regular">{{@datum['prayers_ara_names'][@i]}}</span>
+                                </th>
+                            </true>
+                            <false>
+                                <th>{{@v}}&nbsp;<span class="amiri-regular">{{@datum['prayers_ara_names'][@i]}}</span>
+                                </th>
+                            </false>
+                        </check>
+                    </repeat>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr class="fs-5 text-center azan-time-row">
+                        <th class='azan-label'>Azan&nbsp;<span class='amiri-regular'>أذان</span></th>
+                        <repeat group="{{ @datum['AzanColNames']}}" key="{{ @i }}" value="{{ @AzanColName }}">
+                            <check if="{{ @key==0 && @datum['active_prayer_id']==@i }}">
+                                <true>
+                                    <td class="table-light border-start border-end">{{ @datum['calls'][@AzanColName] }}
+                                    </td>
+                                </true>
+                                <false>
+                                    <td>{{ @datum['calls'][@AzanColName] }}</td>
+                                </false>
+                            </check>
+                        </repeat>
+                    </tr>
+                    <tr class="iqama-time-row fs-5 text-center">
+                        <th>Iqama&nbsp;<span class='amiri-regular'>إقامة</span></th>
+                        <repeat group="{{ @datum['IqamaColNames']}}" key="{{ @i }}" value="{{ @IqamaColName }}">
+                            <check if="{{ @key==0 && @datum['active_prayer_id']==@i }}">
+                                <true>
+                                    <check if="{{ @i!=1 }}">
+                                        <true>
+                                            <td class="table-light border-start border-end">{{
+                                                @datum['calls'][@IqamaColName] }}
+                                            </td>
+                                        </true>
+                                        <false>
+                                            <td class="table-light border-start border-end"></td>
+                                        </false>
+                                    </check>
+                                </true>
+                                <false>
+                                    <check if="{{ @i!=1 }}">
+                                        <true>
+                                            <td>{{ @datum['calls'][@IqamaColName] }}</td>
+                                        </true>
+                                        <false>
+                                            <td></td>
+                                        </false>
+                                    </check>
+                                </false>
+                            </check>
+                        </repeat>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="7" class="border-top" style="vertical-align: middle; clear: both;">
+                            <h5 class='current-prayer-msg'>
+                                <div style="display:inline-flex;">
+                                    <check if="{{ @key==0 }}"><true>{{ @datum['active_prayer_alert'] }}</true></check>
+                                    <check if="{{ @key==1 }}"><true>{{ @ds[0]['friday_prayer_alert'] }}</true></check>
+                                </div>
+                                <check if="{{ @key==0 }}">
+                                    <div id="timer-wrap" style="display:inline-flex;">
+                                        <div class="timer" data-minutes-left="{{ @datum['active_prayer_timer'] }}">
+                                        </div>
+                                    </div>
+                                </check>
+                            </h5>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </repeat>
+    </div>
+</div>
+<script src="/prayer-times/assets/js/jquery-simple-timer.js"></script>
+<script src="/prayer-times/assets/js/script.js"></script>

@@ -1,33 +1,54 @@
-<div class="media-card card text-start">
-    <div class="row">
-        <div class="col">
-            <div class="social-media-card">
-                <div class="row">
-                    <div class="col-8">
-                        <img width="48" src="/prayer-times/assets/images/w.png" class="d-block img-social float-start">
-                        <h5>Join our WhatsApp Community</h5>
-                        <small>Stay connected with our masjid community! Join our WhatsApp group for real-time updates on events, activities, prayer times, and more.</small>
-                    </div>
-                    <div class="col-4">
-                        <img width="100" class="qr" src="/prayer-times/assets/images/whatsapp_qrcode_image_600.png" alt="whatsapp_qrcode" />
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="social-media-card">
-                <div class="row">
-                    <div class="col-8">
-                        <img width="48" src="/prayer-times/assets/images/y.png" class="d-block img-social float-start">
-                        <h5>Subscribe to our youtube channel</h5>
-                        <p>@masjidalhidayah-isbc2770</p>
-                        <small>Watch live Halaqat and other masjid broadcasts</small>
-                    </div>
-                    <div class="col-4">
-                        <img width="100" class="qr" src="/prayer-times/assets/images/youtube-qrcode_image_600.png" />
+<div class="media-card card shadow-sm">
+
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h5 class="card-title mb-3">Join Our Community</h5>
+                <p class="text-muted mb-4">Get Masjid updates, Islamic reminders, and community events through our social channels.</p>
+                
+                <div class="d-flex gap-2 justify-content-center">
+                    <img alt="whatsapp" width="48" src="/prayer-times/assets/images/w.png" class="img-social">
+                    <img alt="youtube" width="48" src="/prayer-times/assets/images/y.png" class="img-social">
+                    <div class="position-relative">
+                        <img alt="facebook" width="48" src="/prayer-times/assets/images/f.png" class="img-social">
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger fb-badge">
+                            UPDATED
+                        </span>
                     </div>
                 </div>
             </div>
+            
+            <div class="col-md-4 text-center">
+                <div class="qr-container p-3 bg-light rounded">
+                    <img src="/prayer-times/assets/images/qr-social-media.png" class="qr-img img-fluid" alt="QR Code" style="max-width: 120px;">
+                    <p class="small text-muted mt-2 mb-0">Scan to connect</p>
+                </div>
+            </div>
         </div>
-    </div>
 </div>
+
+<style>
+.media-card {
+    border: none;
+    border-radius: 12px;
+    background: #fff;
+    padding: 11px;
+    height: 203px;
+}
+
+.img-social {
+    opacity: 0.9;
+}
+
+.qr-container {
+    border-radius: 8px;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.1);
+}
+
+.fb-badge {
+    right: -36px !important;
+    left: auto !important;
+    font-size: 12px;
+    font-style: italic;
+    padding: 3px;
+}
+</style>

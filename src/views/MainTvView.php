@@ -15,7 +15,7 @@ class MainTvView
 
         $db = $f3->get('DB');
         $adminModel = new AdminModel($db);
-        $posters = $adminModel->getImages();
+        $posters = $adminModel->getPublishedImages(); // Only published posters on TV
         $f3->set('posters', $posters);
 
         echo \Template::instance()->render('src/views/html/BaseLayout.html');

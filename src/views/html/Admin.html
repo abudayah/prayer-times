@@ -47,14 +47,36 @@
         <div class="row g-3">
             <repeat group="{{ @posters }}" value="{{ @poster }}">
                 <div class="col-md-4">
-                    <div class="card shadow-sm h-100 border-0">
-                        <a href="{{ @poster.file_path }}" target="_blank">
-                            <img src="{{ @poster.file_path }}" class="card-img-top img-fluid rounded-top" alt="{{ @poster.name }}">
-                        </a>
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title text-center">{{ @poster.name }}</h5>
-                            <p class="card-text text-muted text-center">📆 {{ @poster.timestamp }}</p>
-                            <a href="/prayer-times/delete/{{ @poster.id }}" class="btn btn-danger btn-sm mt-auto">🅧 Delete</a>
+                    <div class="card shadow-sm h-100 border-0 poster-admin-card">
+                        <div class="poster-admin-img-wrap">
+                            <img src="{{ @poster.file_path }}" class="img-fluid w-100" alt="{{ @poster.name }}">
+                            <check if="{{ @poster.published == 1 }}">
+                                <true><span class="poster-badge badge bg-success">Published</span></true>
+                                <false><span class="poster-badge badge bg-secondary">Unpublished</span></false>
+                            </check>
+                        </div>
+                        <div class="card-body d-flex flex-column gap-2">
+                            <h6 class="card-title text-center mb-0">{{ @poster.name }}</h6>
+                            <p class="card-text text-muted text-center small mb-0">📆 {{ @poster.timestamp }}</p>
+
+                            <div class="d-flex gap-1 mt-1 align-items-center">
+                                <form method="post" action="/prayer-times/toggle-publish/{{ @poster.id }}" class="flex-grow-1">
+                                    <check if="{{ @poster.published == 1 }}">
+                                        <true>
+                                            <button type="submit" class="btn btn-warning btn-sm w-100">⏸ Unpublish</button>
+                                        </true>
+                                        <false>
+                                            <button type="submit" class="btn btn-success btn-sm w-100">▶ Publish</button>
+                                        </false>
+                                    </check>
+                                </form>
+
+                                <a href="{{ @poster.file_path }}" download="{{ @poster.name }}" class="btn btn-outline-primary btn-sm">⬇</a>
+
+                                <a href="/prayer-times/delete/{{ @poster.id }}"
+                                   class="btn btn-outline-danger btn-sm delete-btn"
+                                   data-name="{{ @poster.name }}">🗑</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -69,26 +91,48 @@
         border: none;
         transition: 0.3s;
     }
+    .btn-success:hover { background-color: #218838; }
 
-    .btn-success:hover {
-        background-color: #218838;
-    }
+    .card { border-radius: 12px; overflow: hidden; }
 
-    .card {
-        border-radius: 12px;
+    .poster-admin-card { border-radius: 12px; }
+
+    .poster-admin-img-wrap {
+        position: relative;
         overflow: hidden;
+        max-height: 220px;
     }
-
-    .card img {
-        max-height: 200px;
+    .poster-admin-img-wrap img {
         object-fit: cover;
+        height: 220px;
+    }
+    .poster-badge {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        font-size: 0.7rem;
+    }
+    .btn-xs {
+        font-size: 0.75rem;
+        padding: 0.2rem 0.5rem;
     }
 </style>
 
 <script>
+    // Delete confirmation
+    document.querySelectorAll('.delete-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            const name = this.dataset.name;
+            if (!confirm(`Delete "${name}"? This cannot be undone.`)) {
+                e.preventDefault();
+            }
+        });
+    });
+
+    // Upload validation
     const MIN_WIDTH   = 700;
-    const A4_RATIO    = 1 / 1.4142;   // width / height for portrait A4
-    const RATIO_TOL   = 0.05;          // ±5% tolerance
+    const A4_RATIO    = 1 / 1.4142;
+    const RATIO_TOL   = 0.05;
 
     const imageInput  = document.getElementById('image');
     const uploadBtn   = document.getElementById('uploadButton');
@@ -98,7 +142,6 @@
         const file = this.files[0];
         feedback.textContent = '';
         uploadBtn.disabled = true;
-
         if (!file) return;
 
         const img = new Image();
@@ -108,16 +151,14 @@
             const ratio = w / h;
             const errors = [];
 
-            if (w < MIN_WIDTH) {
+            if (w < MIN_WIDTH)
                 errors.push(`Width is ${w}px — minimum is ${MIN_WIDTH}px for good TV quality.`);
-            }
-            if (h <= w) {
+            if (h <= w)
                 errors.push(`Image must be portrait (taller than wide). Got ${w}×${h}px.`);
-            }
             const ratioDiff = Math.abs(ratio - A4_RATIO) / A4_RATIO;
             if (ratioDiff > RATIO_TOL) {
                 const expected = Math.round(w * 1.4142);
-                errors.push(`Ratio is ${(ratio).toFixed(3)} — expected A4 portrait (~${w}×${expected}px). Current: ${w}×${h}px.`);
+                errors.push(`Ratio is ${ratio.toFixed(3)} — expected A4 portrait (~${w}×${expected}px). Current: ${w}×${h}px.`);
             }
 
             if (errors.length > 0) {
@@ -127,7 +168,6 @@
                 feedback.innerHTML = `<span class="text-success">✓ ${w}×${h}px — looks good!</span>`;
                 uploadBtn.disabled = false;
             }
-
             URL.revokeObjectURL(img.src);
         };
         img.src = URL.createObjectURL(file);

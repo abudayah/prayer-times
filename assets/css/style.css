@@ -316,7 +316,8 @@ h1, h2, h3, h4, h5, h6, .card-title, .prayers-label th, th.azan-label, .azan-tim
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 10vh;
+    /* min-height: 10vh; */
+    height: 190px;
     text-align: center;
 }
 

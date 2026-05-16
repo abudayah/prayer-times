@@ -31,6 +31,7 @@ CREATE TABLE `posters` (
   `id` int NOT NULL,
   `name` text NOT NULL,
   `file_path` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  `published` tinyint(1) NOT NULL DEFAULT 1,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -38,10 +39,10 @@ CREATE TABLE `posters` (
 -- Dumping data for table `posters`
 --
 
-INSERT INTO `posters` (`id`, `name`, `file_path`, `timestamp`) VALUES
-(47, 'quran', 'uploads/67c9969eec040_quran-3.jpg', '2025-03-07 03:30:28'),
-(51, 'Ramadan', 'uploads/67c9c47a5873e_New Project (1).jpg', '2025-03-06 15:51:22'),
-(54, 'Ramadan kareem 2', 'uploads/67ca67a06ab77_ramadan-kareem.png', '2025-03-07 03:35:28');
+INSERT INTO `posters` (`id`, `name`, `file_path`, `published`, `timestamp`) VALUES
+(47, 'quran', 'uploads/67c9969eec040_quran-3.jpg', 1, '2025-03-07 03:30:28'),
+(51, 'Ramadan', 'uploads/67c9c47a5873e_New Project (1).jpg', 1, '2025-03-06 15:51:22'),
+(54, 'Ramadan kareem 2', 'uploads/67ca67a06ab77_ramadan-kareem.png', 1, '2025-03-07 03:35:28');
 
 -- --------------------------------------------------------
 

@@ -15,7 +15,7 @@ class AdminController {
     function beforeRoute($f3) {
         $route = $f3->get('PATTERN');
 
-        if (in_array($route, ['/admin', '/upload', '/delete/@id']) && !$this->isAuthenticated($f3)) {
+        if (in_array($route, ['/admin', '/upload', '/delete/@id', '/toggle-publish/@id']) && !$this->isAuthenticated($f3)) {
             $f3->reroute('/login');
         }
     }
@@ -98,9 +98,19 @@ class AdminController {
         $f3->reroute('/admin'); // Redirect back to the admin page
     }
 
+    function togglePublish($f3) {
+        $db = $f3->get('DB');
+        $id = $f3->get('PARAMS.id');
+
+        $adminModel = new AdminModel($db);
+        $adminModel->togglePublish($id);
+
+        $f3->reroute('/admin');
+    }
+
     function lastUpdated($f3) {
         $db = $f3->get('DB');
-        $result = $db->exec('SELECT MAX(timestamp) as last_updated FROM posters');
+        $result = $db->exec('SELECT MAX(timestamp) as last_updated FROM posters WHERE published = 1');
         $timestamp = $result[0]['last_updated'] ?? null;
         header('Content-Type: application/json');
         echo json_encode(['last_updated' => $timestamp]);

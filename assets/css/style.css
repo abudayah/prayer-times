@@ -44,9 +44,9 @@ html, body {
 }
 
 body {
-    background-color: #5b918273;
+    background-color: #eee;
     background-size: 500px;
-    background-image: url(pattern.png);
+    /* background-image: url(pattern.png); */
     background-position: -20px;
 }
 

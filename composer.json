@@ -18,5 +18,10 @@
         {
             "name": "Hanea"
         }
-    ]
+    ],
+    "config": {
+        "preferred-install": {
+            "bcosca/fatfree-core": "dist"
+        }
+    }
 }

@@ -3,7 +3,7 @@
         'name' => 'isbc/prayertimes',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '8c939ef72178d6150eec184b9e76612611258fb5',
+        'reference' => '9cbd9974cea6b0320cd4ce86860de6192238dab4',
         'type' => 'web-application',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -40,7 +40,7 @@
         'isbc/prayertimes' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '8c939ef72178d6150eec184b9e76612611258fb5',
+            'reference' => '9cbd9974cea6b0320cd4ce86860de6192238dab4',
             'type' => 'web-application',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

@@ -13,7 +13,7 @@ class CsvMainTvModel extends CsvBaseModel
 {
     #private HelperClass $helperClass;
     private PrayerIds $pids; 
-    private array $mainTvDataset;
+    private array|false $mainTvDataset;
 
     private string $active_prayer_alert = "See you tomorrow inSha'Alla!";
     private int $active_prayer_id=-1;
@@ -39,6 +39,11 @@ class CsvMainTvModel extends CsvBaseModel
         $this->today = new \DateTime("today");
         $this->tomorrow = new \DateTime("tomorrow");
         $this->mainTvDataset = $this->getDatasetByDates($this->today,$this->tomorrow);
+        if ($this->mainTvDataset === false) {
+            throw new \RuntimeException(
+                "No prayer schedule data found for today (" . $this->today->format('F j, Y') . "). Please update the CSV data file."
+            );
+        }
         $this->set_active_prayer($this->mainTvDataset[0]["calls"] ,0);
         $this->set_friday_message();
     }

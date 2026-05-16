@@ -36,14 +36,94 @@ body, .roboto-condensed {
     color: #329D9C;
 }
 
+/* ── TV LAYOUT ─────────────────────────────────────────────── */
+html, body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
 body {
-    width: 1920px;
-    height: 1080px;
     background-color: #5b918273;
     background-size: 500px;
     background-image: url(pattern.png);
     background-position: -20px;
 }
+
+.tv-layout {
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    height: 100vh;
+    gap: 0.6vw;
+    padding: 0.6vw;
+    box-sizing: border-box;
+}
+
+/* Middle column — poster carousel, locked to A4 portrait ratio (1:√2) */
+.tv-col-middle {
+    flex: 0 0 auto;
+    width: calc(100vh / 1.4142);
+    min-width: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Right column — duaa + prayer times + social */
+.tv-col-right {
+    flex: 1 1 0;
+    min-width: 0;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6vw;
+}
+
+.tv-right-top    { flex: 0 0 auto; }
+.tv-right-middle { flex: 1 1 0; min-height: 0; }
+
+/* Cards fill their container */
+.tv-col-middle .poster-card {
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* .col wrapper inside tv-col-middle must also be full height */
+.tv-col-middle .col {
+    height: 100%;
+}
+
+/* Poster card inner carousel must also fill height */
+.tv-col-middle .poster-card,
+.tv-col-middle .poster-card .carousel,
+.tv-col-middle .poster-card .carousel-inner {
+    height: 100%;
+}
+
+/* Prayer times iframe fills its flex cell */
+.prayer-times-widget {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.prayer-times-widget .card-body {
+    flex: 1;
+    padding: 0;
+}
+
+.prayer-times-widget iframe {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    border: none;
+    display: block;
+}
+/* ── END TV LAYOUT ──────────────────────────────────────────── */
 
 h1, h2, h3, h4, h5, h6, .card-title, .prayers-label th, th.azan-label, .azan-time-row td {
     color: #205072; /* blue */
@@ -154,7 +234,8 @@ h1, h2, h3, h4, h5, h6, .card-title, .prayers-label th, th.azan-label, .azan-tim
 
 .about-card {
     padding: 1rem;
-    height: 1042px;
+    overflow-y: auto;
+    box-sizing: border-box;
 }
 
 .services-card {
@@ -167,7 +248,7 @@ h1, h2, h3, h4, h5, h6, .card-title, .prayers-label th, th.azan-label, .azan-tim
 }
 
 #servicesCarousel .carousel-item {
-    height: 330px;
+    height: 28vh;
 }
 
 #servicesCarousel .carousel-indicators {
@@ -200,17 +281,24 @@ h1, h2, h3, h4, h5, h6, .card-title, .prayers-label th, th.azan-label, .azan-tim
     overflow: hidden;
     position: relative;
     box-shadow: 0 0 11px 0px rgb(0 0 0 / 15%);
-    height: 1042px;
-    width: 770px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
 }
 
 .poster-card .carousel-item {
     background-color: #fff;
-    height: 1042px;
+    height: 100%;
     box-shadow: 0 0 20px 0px rgb(0 0 0 / 15%);
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+/* Make Bootstrap carousel fill the card height */
+.poster-card .carousel,
+.poster-card .carousel-inner {
+    height: 100%;
 }
 
 .poster-card .carousel-item img {
@@ -221,11 +309,15 @@ h1, h2, h3, h4, h5, h6, .card-title, .prayers-label th, th.azan-label, .azan-tim
 
 .duaa-card {
     box-shadow: 0 0 11px 0px rgb(0 0 0 / 15%);
-    padding: 1.5rem 5rem 1rem;
-    height: 150px;
+    padding: 1rem 3rem;
     background-image: url(/prayer-times/assets/images/duaa-bg-2.jpg);
     background-position: center center;
-    background-size: 100%;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 10vh;
+    text-align: center;
 }
 
 .duaa-card .amiri-bold {
@@ -253,4 +345,5 @@ h1, h2, h3, h4, h5, h6, .card-title, .prayers-label th, th.azan-label, .azan-tim
 .card{
     box-shadow: 0 0 11px 0px rgb(0 0 0 / 15%);
     color: #555;
+    overflow: hidden;
 }

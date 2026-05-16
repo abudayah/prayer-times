@@ -18,21 +18,35 @@
   <script src="/prayer-times/vendor/twbs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
   <!-- font awosome -->
-  <link rel="stylesheet" href="/prayer-times//vendor/fortawesome/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/prayer-times/vendor/fortawesome/font-awesome/css/all.min.css">
   <script src="/prayer-times/vendor/fortawesome/font-awesome/js/all.min.js"></script>
 
   <!-- own style sheets -->
   <link rel="stylesheet" href="/prayer-times/assets/css/style.css">
+
+  <!-- Responsive font scaling for TV screens -->
+  <style>
+    html { font-size: calc(10px + 0.5vw); }
+  </style>
 
   <!-- jquery -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
   <script>
     const refreshInterval = {{ @refreshInterval }};
+    const pageLoadTime = new Date().toISOString();
 
-    setInterval(() => {
-      if (navigator.onLine) {
-        window.location.reload();
+    setInterval(async () => {
+      if (!navigator.onLine) return;
+      try {
+        const res = await fetch('/prayer-times/last-updated?_=' + Date.now());
+        if (!res.ok) return;
+        const data = await res.json();
+        if (data.last_updated && new Date(data.last_updated) > new Date(pageLoadTime)) {
+          window.location.reload();
+        }
+      } catch (e) {
+        // network hiccup — skip this cycle, try again next interval
       }
     }, 1000 * 60 * refreshInterval);
   </script>

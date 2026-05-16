@@ -22,9 +22,8 @@
     <div class="card shadow-lg p-4 border-0">
         <h6 class="fw-bold text-start mb-4">Upload Poster</h6>
 
-        
         <div class="alert alert-light" role="alert">
-            💡 Image size requirement: <strong>width: 770px - hight: 1042px</strong>
+            💡 Use <strong>A4 portrait</strong> format for best results on the TV screen (e.g. 794×1123px at 96dpi, or 2480×3508px at 300dpi). The TV display maintains A4 ratio automatically.
         </div>
 
         <form action="/prayer-times/upload" method="post" enctype="multipart/form-data" class="mb-4">
@@ -36,9 +35,10 @@
             <div class="mb-3">
                 <label for="image" class="form-label">📂 Select Image:</label>
                 <input type="file" name="image" id="image" class="form-control form-control-lg rounded" required accept="image/*">
+                <div id="image-feedback" class="form-text mt-1"></div>
             </div>
 
-            <button type="submit" class="btn btn-success w-100" id="uploadButton">📤 Upload</button>
+            <button type="submit" class="btn btn-success w-100" id="uploadButton" disabled>📤 Upload</button>
         </form>
     </div>
 
@@ -86,27 +86,51 @@
 </style>
 
 <script>
-    document.getElementById('image').addEventListener('change', function(event) {
-        const file = event.target.files[0];
-        if (file) {
-            const img = new Image();
-            img.onload = function() {
-                if (this.width !== 770 || this.height !== 1042) {
-                    alert('Image must be exactly 770px wide and 1042px high.');
-                    event.target.value = ''; // Clear the file input
-                    document.getElementById('uploadButton').disabled = true;
-                } else {
-                    document.getElementById('uploadButton').disabled = false;
-                }
-            };
-            img.src = URL.createObjectURL(file);
-        }
-        else{
-            document.getElementById('uploadButton').disabled = true;
-        }
-    });
-    document.addEventListener('DOMContentLoaded', function() {
-        document.getElementById('uploadButton').disabled = true;
-    });
+    const MIN_WIDTH   = 700;
+    const A4_RATIO    = 1 / 1.4142;   // width / height for portrait A4
+    const RATIO_TOL   = 0.05;          // ±5% tolerance
 
+    const imageInput  = document.getElementById('image');
+    const uploadBtn   = document.getElementById('uploadButton');
+    const feedback    = document.getElementById('image-feedback');
+
+    imageInput.addEventListener('change', function () {
+        const file = this.files[0];
+        feedback.textContent = '';
+        uploadBtn.disabled = true;
+
+        if (!file) return;
+
+        const img = new Image();
+        img.onload = function () {
+            const w = img.naturalWidth;
+            const h = img.naturalHeight;
+            const ratio = w / h;
+            const errors = [];
+
+            if (w < MIN_WIDTH) {
+                errors.push(`Width is ${w}px — minimum is ${MIN_WIDTH}px for good TV quality.`);
+            }
+            if (h <= w) {
+                errors.push(`Image must be portrait (taller than wide). Got ${w}×${h}px.`);
+            }
+            const ratioDiff = Math.abs(ratio - A4_RATIO) / A4_RATIO;
+            if (ratioDiff > RATIO_TOL) {
+                const expected = Math.round(w * 1.4142);
+                errors.push(`Ratio is ${(ratio).toFixed(3)} — expected A4 portrait (~${w}×${expected}px). Current: ${w}×${h}px.`);
+            }
+
+            if (errors.length > 0) {
+                feedback.innerHTML = errors.map(e => `<span class="text-danger">⚠ ${e}</span>`).join('<br>');
+                uploadBtn.disabled = true;
+            } else {
+                feedback.innerHTML = `<span class="text-success">✓ ${w}×${h}px — looks good!</span>`;
+                uploadBtn.disabled = false;
+            }
+
+            URL.revokeObjectURL(img.src);
+        };
+        img.src = URL.createObjectURL(file);
+    });
 </script>
+

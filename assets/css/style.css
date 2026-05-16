@@ -39,8 +39,6 @@ body, .roboto-condensed {
 /* ── TV LAYOUT ─────────────────────────────────────────────── */
 html, body {
     width: 100vw;
-    height: 100vh;
-    overflow: hidden;
     margin: 0;
     padding: 0;
 }
@@ -50,6 +48,12 @@ body {
     background-size: 500px;
     background-image: url(pattern.png);
     background-position: -20px;
+}
+
+/* TV-only: lock to viewport, no scroll */
+body.tv-screen {
+    height: 100vh;
+    overflow: hidden;
 }
 
 .tv-layout {

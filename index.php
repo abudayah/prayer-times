@@ -37,4 +37,7 @@ $f3->config('src/configs/routes.cfg');
 // Expose version to all templates
 $f3->set('APP_VERSION', $_ENV['APP_VERSION'] ?? '1.0.0');
 
+// Default body class (TV view overrides this)
+$f3->set('bodyClass', '');
+
 $f3->run();

@@ -7,6 +7,7 @@ class MainTvView
     public function display()
     {
         $f3 = \Base::instance();
+        $f3->set('bodyClass', 'tv-screen');
         $f3->set('content', 'src/views/html/ContentLayout.html');
         $f3->set('LeftSide', 'src/views/html/LeftSide.html');
         $f3->set('Duaa', 'src/views/html/Duaa.html');

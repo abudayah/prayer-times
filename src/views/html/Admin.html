@@ -26,7 +26,7 @@
             💡 Use <strong>A4 portrait</strong> format for best results on the TV screen (e.g. 794×1123px at 96dpi, or 2480×3508px at 300dpi). The TV display maintains A4 ratio automatically.
         </div>
 
-        <form action="/prayer-times/upload" method="post" enctype="multipart/form-data" class="mb-4">
+        <form action="/prayer-times/upload" method="post" enctype="multipart/form-data" class="mb-4" id="upload-form">
             <div class="mb-3">
                 <label for="name" class="form-label">📝 Poster Name:</label>
                 <input type="text" name="name" id="name" class="form-control form-control-lg rounded" required>
@@ -127,6 +127,13 @@
                 e.preventDefault();
             }
         });
+    });
+
+    // Upload loading state
+    document.getElementById('upload-form').addEventListener('submit', function() {
+        const btn = document.getElementById('uploadButton');
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Uploading...';
     });
 
     // Upload validation

@@ -54,8 +54,12 @@ try {
 
 // 7. Check F3
 try {
+    if (!class_exists('Base')) {
+        require __DIR__ . '/vendor/bcosca/fatfree-core/base.php';
+    }
     $f3 = \Base::instance();
     echo "F3: OK\n";
+    echo "F3 version: " . \Base::VERSION . "\n";
 } catch (Throwable $e) {
     echo "F3 ERROR: " . $e->getMessage() . "\n";
 }

@@ -1,6 +1,11 @@
 <?php
 require 'vendor/autoload.php';
 
+// Fat-Free Framework requires explicit inclusion (not PSR-4 autoloaded)
+if (!class_exists('Base')) {
+    require 'vendor/bcosca/fatfree-core/base.php';
+}
+
 // Load .env if it exists
 if (file_exists(__DIR__ . '/.env')) {
     $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);

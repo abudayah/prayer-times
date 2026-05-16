@@ -355,3 +355,13 @@ h1, h2, h3, h4, h5, h6, .card-title, .prayers-label th, th.azan-label, .azan-tim
     color: #555;
     overflow: hidden;
 }
+.carousel-indicators {
+    position: absolute;
+    right: 20px !important;
+    top: 7px !important;
+    left: 0 !important;
+    z-index: 2;
+    display: flex;
+    padding: 0 !important;
+    margin: 0 0 0 12px !important;
+}

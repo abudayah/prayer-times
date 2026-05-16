@@ -1,9 +1,7 @@
 ---
 deployment:
   tasks:
-    # Run composer using the bundled composer.phar
-    - export COMPOSER_HOME="${HOME}/.composer" && php "${DEPLOYPATH}/composer.phar" install --no-dev --optimize-autoloader --no-interaction
-
-    # Ensure uploads directory exists and is writable
+    - export COMPOSER_HOME="${HOME}/.composer"
+    - php "${DEPLOYPATH}/composer.phar" install --no-dev --optimize-autoloader --no-interaction
     - mkdir -p "${DEPLOYPATH}/uploads"
     - chmod 755 "${DEPLOYPATH}/uploads"

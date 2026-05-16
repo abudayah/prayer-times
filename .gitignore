@@ -8,8 +8,8 @@
 # Environment — never commit secrets
 .env
 
-# Composer dependencies — installed on server via .cpanel.yml
-/vendor/
+# Composer dependencies — committed for reliable deployment
+# /vendor/
 
 # composer.phar is committed intentionally as a fallback for cPanel deployment
 

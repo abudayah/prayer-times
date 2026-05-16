@@ -1,12 +1,6 @@
 ---
 deployment:
   tasks:
-    # Remove vendor to force clean install (avoids git-type packages being skipped)
-    - rm -rf "${DEPLOYPATH}/vendor"
-
-    # Install all dependencies using dist (zip) downloads — no git required
-    - export COMPOSER_HOME="${HOME}/.composer" && php "${DEPLOYPATH}/composer.phar" install --prefer-dist --optimize-autoloader --no-interaction
-
     # Ensure uploads directory exists and is writable
     - mkdir -p "${DEPLOYPATH}/uploads"
     - chmod 755 "${DEPLOYPATH}/uploads"

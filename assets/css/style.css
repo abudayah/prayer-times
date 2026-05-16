@@ -310,7 +310,7 @@ h1, h2, h3, h4, h5, h6, .card-title, .prayers-label th, th.azan-label, .azan-tim
     max-height: 100%;
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
     display: block;
 }
 

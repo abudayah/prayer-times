@@ -1,18 +1,21 @@
 <?php
 require 'vendor/autoload.php';
 
-// Load .env
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-$dotenv->load();
-$dotenv->required(['DB_HOST', 'DB_NAME', 'DB_USER', 'DB_PASS', 'APP_BASE_PATH']);
+// Load .env if it exists
+if (file_exists(__DIR__ . '/.env')) {
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+    $dotenv->load();
+}
 
 $f3 = \Base::instance();
 
-// Database
+// Database — from .env or fallback to hardcoded for legacy deployments
 $f3->set('DB', new DB\SQL(
-    'mysql:host=' . $_ENV['DB_HOST'] . ';port=' . ($_ENV['DB_PORT'] ?? '3306') . ';dbname=' . $_ENV['DB_NAME'],
-    $_ENV['DB_USER'],
-    $_ENV['DB_PASS']
+    'mysql:host=' . ($_ENV['DB_HOST'] ?? 'localhost') .
+    ';port='      . ($_ENV['DB_PORT'] ?? '3306') .
+    ';dbname='    . ($_ENV['DB_NAME'] ?? 'prayer_times'),
+    $_ENV['DB_USER'] ?? 'root',
+    $_ENV['DB_PASS'] ?? ''
 ));
 
 // Before routing - protect admin routes

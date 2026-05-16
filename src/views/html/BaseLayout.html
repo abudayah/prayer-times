@@ -35,6 +35,7 @@
   <script>
     const refreshInterval = {{ @refreshInterval }};
     const pageLoadTime = new Date().toISOString();
+    const pageVersion = '{{ @APP_VERSION }}';
 
     setInterval(async () => {
       if (!navigator.onLine) return;
@@ -42,11 +43,13 @@
         const res = await fetch('/prayer-times/last-updated?_=' + Date.now());
         if (!res.ok) return;
         const data = await res.json();
-        if (data.last_updated && new Date(data.last_updated) > new Date(pageLoadTime)) {
-          window.location.reload();
+        const posterChanged = data.last_updated && new Date(data.last_updated) > new Date(pageLoadTime);
+        const versionChanged = data.version && data.version !== pageVersion;
+        if (posterChanged || versionChanged) {
+          window.location.reload(true);
         }
       } catch (e) {
-        // network hiccup — skip this cycle, try again next interval
+        // network hiccup — skip this cycle
       }
     }, 1000 * 60 * refreshInterval);
   </script>

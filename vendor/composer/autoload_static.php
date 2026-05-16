@@ -6,21 +6,70 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit942e878fc538dc0b7815d82e91422e44
 {
+    public static $files = array (
+        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
+        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+        'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
+    );
+
     public static $prefixLengthsPsr4 = array (
+        'S' => 
+        array (
+            'Symfony\\Polyfill\\Php80\\' => 23,
+            'Symfony\\Polyfill\\Mbstring\\' => 26,
+            'Symfony\\Polyfill\\Ctype\\' => 23,
+        ),
+        'P' => 
+        array (
+            'PhpOption\\' => 10,
+        ),
         'I' => 
         array (
             'Isbc\\Prayertimes\\' => 17,
         ),
+        'G' => 
+        array (
+            'GrahamCampbell\\ResultType\\' => 26,
+        ),
+        'D' => 
+        array (
+            'Dotenv\\' => 7,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
+        'Symfony\\Polyfill\\Php80\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-php80',
+        ),
+        'Symfony\\Polyfill\\Mbstring\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
+        ),
+        'Symfony\\Polyfill\\Ctype\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
+        ),
+        'PhpOption\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption',
+        ),
         'Isbc\\Prayertimes\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),
+        'GrahamCampbell\\ResultType\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/graham-campbell/result-type/src',
+        ),
+        'Dotenv\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/vlucas/phpdotenv/src',
+        ),
     );
 
     public static $classMap = array (
+        'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Audit' => __DIR__ . '/..' . '/bcosca/fatfree-core/audit.php',
         'Auth' => __DIR__ . '/..' . '/bcosca/fatfree-core/auth.php',
         'Base' => __DIR__ . '/..' . '/bcosca/fatfree-core/base.php',
@@ -47,15 +96,19 @@ class ComposerStaticInit942e878fc538dc0b7815d82e91422e44
         'Magic' => __DIR__ . '/..' . '/bcosca/fatfree-core/magic.php',
         'Markdown' => __DIR__ . '/..' . '/bcosca/fatfree-core/markdown.php',
         'Matrix' => __DIR__ . '/..' . '/bcosca/fatfree-core/matrix.php',
+        'PhpToken' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/PhpToken.php',
         'Prefab' => __DIR__ . '/..' . '/bcosca/fatfree-core/base.php',
         'Preview' => __DIR__ . '/..' . '/bcosca/fatfree-core/base.php',
         'Registry' => __DIR__ . '/..' . '/bcosca/fatfree-core/base.php',
         'SMTP' => __DIR__ . '/..' . '/bcosca/fatfree-core/smtp.php',
         'Session' => __DIR__ . '/..' . '/bcosca/fatfree-core/session.php',
         'SessionAdapter' => __DIR__ . '/..' . '/bcosca/fatfree-core/sessionadapter.php',
+        'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
         'Template' => __DIR__ . '/..' . '/bcosca/fatfree-core/template.php',
         'Test' => __DIR__ . '/..' . '/bcosca/fatfree-core/test.php',
         'UTF' => __DIR__ . '/..' . '/bcosca/fatfree-core/utf.php',
+        'UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
+        'ValueError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
         'View' => __DIR__ . '/..' . '/bcosca/fatfree-core/base.php',
         'Web' => __DIR__ . '/..' . '/bcosca/fatfree-core/web.php',
         'Web\\Geo' => __DIR__ . '/..' . '/bcosca/fatfree-core/web/geo.php',

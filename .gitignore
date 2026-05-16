@@ -1,4 +1,21 @@
+# OS
 .DS_Store
-uploads/*
-/tmp/
+
+# IDE
 /.idea
+/.vscode
+
+# Environment — never commit secrets
+.env
+
+# Composer dependencies — installed on server via .cpanel.yml
+/vendor/
+
+# composer.phar is committed intentionally as a fallback for cPanel deployment
+
+# User uploads — managed at runtime
+uploads/*
+!uploads/.gitkeep
+
+# Temp
+/tmp/

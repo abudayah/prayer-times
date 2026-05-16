@@ -1,0 +1,10 @@
+---
+deployment:
+  tasks:
+    # Install/update composer dependencies
+    # Tries global composer first, falls back to composer.phar in repo root
+    - export COMPOSER_HOME="${HOME}/.composer" && (composer install --no-dev --optimize-autoloader --no-interaction 2>/dev/null || php composer.phar install --no-dev --optimize-autoloader --no-interaction)
+
+    # Ensure uploads directory exists and is writable
+    - mkdir -p "${HOME}/public_html/prayer-times/uploads"
+    - chmod 755 "${HOME}/public_html/prayer-times/uploads"

@@ -113,7 +113,10 @@ class AdminController {
         $result = $db->exec('SELECT MAX(timestamp) as last_updated FROM posters WHERE published = 1');
         $timestamp = $result[0]['last_updated'] ?? null;
         header('Content-Type: application/json');
-        echo json_encode(['last_updated' => $timestamp]);
+        echo json_encode([
+            'last_updated' => $timestamp,
+            'version'      => $_ENV['APP_VERSION'] ?? '1.0.0',
+        ]);
     }
 
     function display($f3) { // New method to display the admin page

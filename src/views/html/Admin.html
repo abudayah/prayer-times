@@ -35,10 +35,9 @@
             <div class="mb-3">
                 <label for="image" class="form-label">📂 Select Image:</label>
                 <input type="file" name="image" id="image" class="form-control form-control-lg rounded" required accept="image/*">
-                <div id="image-feedback" class="form-text mt-1"></div>
             </div>
 
-            <button type="submit" class="btn btn-success w-100" id="uploadButton" disabled>📤 Upload</button>
+            <button type="submit" class="btn btn-success w-100" id="uploadButton">📤 Upload</button>
         </form>
     </div>
 
@@ -134,50 +133,6 @@
         const btn = document.getElementById('uploadButton');
         btn.disabled = true;
         btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Uploading...';
-    });
-
-    // Upload validation
-    const MIN_WIDTH   = 700;
-    const A4_RATIO    = 1 / 1.4142;
-    const RATIO_TOL   = 0.05;
-
-    const imageInput  = document.getElementById('image');
-    const uploadBtn   = document.getElementById('uploadButton');
-    const feedback    = document.getElementById('image-feedback');
-
-    imageInput.addEventListener('change', function () {
-        const file = this.files[0];
-        feedback.textContent = '';
-        uploadBtn.disabled = true;
-        if (!file) return;
-
-        const img = new Image();
-        img.onload = function () {
-            const w = img.naturalWidth;
-            const h = img.naturalHeight;
-            const ratio = w / h;
-            const errors = [];
-
-            if (w < MIN_WIDTH)
-                errors.push(`Width is ${w}px — minimum is ${MIN_WIDTH}px for good TV quality.`);
-            if (h <= w)
-                errors.push(`Image must be portrait (taller than wide). Got ${w}×${h}px.`);
-            const ratioDiff = Math.abs(ratio - A4_RATIO) / A4_RATIO;
-            if (ratioDiff > RATIO_TOL) {
-                const expected = Math.round(w * 1.4142);
-                errors.push(`Ratio is ${ratio.toFixed(3)} — expected A4 portrait (~${w}×${expected}px). Current: ${w}×${h}px.`);
-            }
-
-            if (errors.length > 0) {
-                feedback.innerHTML = errors.map(e => `<span class="text-danger">⚠ ${e}</span>`).join('<br>');
-                uploadBtn.disabled = true;
-            } else {
-                feedback.innerHTML = `<span class="text-success">✓ ${w}×${h}px — looks good!</span>`;
-                uploadBtn.disabled = false;
-            }
-            URL.revokeObjectURL(img.src);
-        };
-        img.src = URL.createObjectURL(file);
     });
 </script>
 

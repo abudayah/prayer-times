@@ -33,25 +33,44 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
   <script>
-    const refreshInterval = {{ @refreshInterval }};
+    const refreshInterval = {{ @refreshInterval }};  // minutes, for poster/version check
+    const hardReloadInterval = 4 * 60 * 60 * 1000;  // 4 hours in ms
     const pageLoadTime = new Date().toISOString();
     const pageVersion = '{{ @APP_VERSION }}';
+    let lastSuccessfulPoll = Date.now();
 
     setInterval(async () => {
-      if (!navigator.onLine) return;
       try {
         const res = await fetch('/prayer-times/last-updated?_=' + Date.now());
         if (!res.ok) return;
+
+        // Successful fetch = confirmed internet connection
+        lastSuccessfulPoll = Date.now();
+
         const data = await res.json();
         const posterChanged = data.last_updated && new Date(data.last_updated) > new Date(pageLoadTime);
         const versionChanged = data.version && data.version !== pageVersion;
+
         if (posterChanged || versionChanged) {
           window.location.reload(true);
         }
       } catch (e) {
-        // network hiccup — skip this cycle
+        // Network hiccup — skip this cycle
       }
     }, 1000 * 60 * refreshInterval);
+
+    // Hard reload every 4 hours — only if internet is confirmed
+    setInterval(async () => {
+      try {
+        const res = await fetch('/prayer-times/last-updated?_=' + Date.now());
+        if (res.ok) {
+          window.location.reload(true);
+        }
+        // If fetch fails, skip — no internet, don't reload
+      } catch (e) {
+        // No internet — skip hard reload
+      }
+    }, hardReloadInterval);
   </script>
 </head>
 <body class="{{ @bodyClass }}">
